@@ -20,7 +20,7 @@ class FpClientesController extends Controller
 
       return response()->json(["status" => 1, "message" => "Cliente agregado exitosamente"]);
     } catch (\Throwable $th) {
-      return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine()]);
+      return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine(), "Archivo" => __FILE__]);
     }
   }
 
@@ -35,7 +35,7 @@ class FpClientesController extends Controller
 
       return response()->json(["status" => 1, "message" => "Cliente actualizado exitosamente"]);
     } catch (\Throwable $th) {
-      return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine()]);
+      return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine(), "Archivo" => __FILE__]);
     }
   }
 
@@ -47,7 +47,7 @@ class FpClientesController extends Controller
 
       return response()->json(["status" => 1, "message" => "Cliente eliminado exitosamente"]);
     } catch (\Throwable $th) {
-      return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine()]);
+      return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine(), "Archivo" => __FILE__]);
     }
   }
 }

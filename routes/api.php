@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\FpGuiasEnvioController;
 use App\Http\Controllers\FpProductosController;
 use App\Http\Controllers\FpClientesController;
 use App\Http\Controllers\FpPedidosController;
@@ -42,4 +43,11 @@ Route::group([
   // Route::post('updatePedido', [FpPedidosController::class, 'updatePedido']);
   Route::post('deletePedido', [FpPedidosController::class, 'deletePedido']);
   Route::post('addPedido', [FpPedidosController::class, 'addPedido']);
+});
+
+Route::group([
+  // 'middleware' => 'jwt.verify',
+  'prefix' => "guias"
+], function ($router) {
+  Route::post('generateGuiasTransporte', [FpGuiasEnvioController::class, 'generateGuiasTransporte']);
 });

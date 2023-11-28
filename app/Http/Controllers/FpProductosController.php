@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FpProductosPorPedidosModel;
 use Illuminate\Routing\Controller;
 use App\Models\FpProductosModel;
 use Illuminate\Http\Request;
@@ -21,7 +20,7 @@ class FPProductosController extends Controller
 
       return response()->json(["status" => 1, "message" => "Producto agregado exitosamente"]);
     } catch (\Throwable $th) {
-      return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine()]);
+      return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine(), "Archivo" => __FILE__]);
     }
   }
 
@@ -36,7 +35,7 @@ class FPProductosController extends Controller
 
       return response()->json(["status" => 1, "message" => "Producto actualizado exitosamente"]);
     } catch (\Throwable $th) {
-      return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine()]);
+      return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine(), "Archivo" => __FILE__]);
     }
   }
 
@@ -48,7 +47,7 @@ class FPProductosController extends Controller
 
       return response()->json(["status" => 1, "message" => "Producto eliminado exitosamente"]);
     } catch (\Throwable $th) {
-      return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine()]);
+      return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine(), "Archivo" => __FILE__]);
     }
   }
 }
