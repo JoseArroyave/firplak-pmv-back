@@ -31,7 +31,7 @@ class FpPedidosController extends Controller
 
       foreach ($request->productos as $key => $producto) {
         array_push($allProductos, [
-          "fecha_entrega" => $producto["fecha_entrega"],
+          "fecha_entrega" => date('Y-m-d', strtotime($date . ' +15 days')) . ' 18:00:00',
           "cantidad" => $producto["cantidad"],
           "id_pedido" => $pedido->id_pedido,
           "SKU" => $producto["SKU"],
@@ -60,8 +60,8 @@ class FpPedidosController extends Controller
 
           FpOrdenesFabricacionModel::insert([
             [
+              "fecha_finalizacion" => date('Y-m-d', strtotime($date . ' +5 days')) . ' 10:00:00',
               "id_pedido" => $pedido->id_pedido,
-              "fecha_finalizacion" => $date,
               "SKU" => $productos[0]["SKU"],
               "fecha_creacion" => $date,
             ]
