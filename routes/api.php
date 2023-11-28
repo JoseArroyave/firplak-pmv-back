@@ -1,7 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\FpProductosController;
+use App\Http\Controllers\FpClientesController;
+use App\Http\Controllers\FpPedidosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([
+  // 'middleware' => 'jwt.fverify',
+  'prefix' => "clientes"
+], function ($router) {
+  Route::post('updateCliente', [FpClientesController::class, 'updateCliente']);
+  Route::post('deleteCliente', [FpClientesController::class, 'deleteCliente']);
+  Route::post('addCliente', [FpClientesController::class, 'addCliente']);
+});
+
+Route::group([
+  // 'middleware' => 'jwt.verify',
+  'prefix' => "productos"
+], function ($router) {
+  Route::post('updateProducto', [FpProductosController::class, 'updateProducto']);
+  Route::post('deleteProducto', [FpProductosController::class, 'deleteProducto']);
+  Route::post('addProducto', [FpProductosController::class, 'addProducto']);
+});
+
+Route::group([
+  // 'middleware' => 'jwt.verify',
+  'prefix' => "pedidos"
+], function ($router) {
+  // Route::post('updatePedido', [FpPedidosController::class, 'updatePedido']);
+  Route::post('deletePedido', [FpPedidosController::class, 'deletePedido']);
+  Route::post('addPedido', [FpPedidosController::class, 'addPedido']);
 });
