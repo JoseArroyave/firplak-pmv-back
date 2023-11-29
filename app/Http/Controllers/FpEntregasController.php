@@ -72,6 +72,8 @@ class FpEntregasController extends Controller
         return $doc["id_documento_entrega"] == $id_documento;
       })[0];
 
+      $qrcode = base64_encode(QrCode::generate("http://192.168.2.103:4000/POD/$id_guia}"));
+
       $data = [
         // "id_documento_entrega" => $documento["id_documento_entrega"],
         "total" => +$documento["precio"] * +$documento["cantidad"],
@@ -87,6 +89,7 @@ class FpEntregasController extends Controller
         "precio" => $documento["precio"],
         "SKU" => $documento["SKU"],
         // "id" => $documento["id"],
+        "qr" => $qrcode
       ];
 
       return PDF::loadView('documento', $data)->stream("Documento {$documento["id_documento_entrega"]}");

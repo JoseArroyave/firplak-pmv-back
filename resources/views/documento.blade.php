@@ -38,6 +38,16 @@
         tr:hover {
             background-color: #f5f5f5;
         }
+
+        .firma {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .center-div {
+            width: 10%;
+            margin: 0 auto;
+        }
     </style>
 </head>
 
@@ -69,6 +79,16 @@
             </tr>
         </tbody>
     </table>
+
+    <!-- Espacio para firma -->
+    <div class="firma">
+        <p>Firma: ___________________________</p>
+    </div>
+
+    <h1>Agregar POD</h1>
+    <div class="center-div">
+        <img src="data:image/png;base64, {{$qr}}" alt="Red dot" />
+    </div>
 
 </body>
 
