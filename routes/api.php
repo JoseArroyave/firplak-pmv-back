@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FpGuiasEnvioController;
 use App\Http\Controllers\FpProductosController;
 use App\Http\Controllers\FpClientesController;
+use App\Http\Controllers\FpEntregasController;
 use App\Http\Controllers\FpPedidosController;
 
 /*
@@ -50,5 +51,14 @@ Route::group([
   'prefix' => "guias"
 ], function ($router) {
   Route::post('generateGuiasTransporte', [FpGuiasEnvioController::class, 'generateGuiasTransporte']);
-  Route::post('getGuiasPerClient', [FpGuiasEnvioController::class, 'getGuiasPerClient']);
+  Route::get('getGuiasPerClient/{id_guia}', [FpGuiasEnvioController::class, 'getGuiasPerClient']);
+  Route::get('getGuiaPDF/{id_guia}/{id_cliente}', [FpGuiasEnvioController::class, 'getGuiaPDF']);
+});
+
+Route::group([
+  // 'middleware' => 'jwt.verify',
+  'prefix' => "documentos"
+], function ($router) {
+  Route::get('getDocumentoPDF/{id_guia}/{id_documento}', [FpEntregasController::class, 'getDocumentoPDF']);
+  Route::get('getDocumentosPerGuia/{id_guia}', [FpEntregasController::class, 'getDocumentosPerGuia']);
 });
