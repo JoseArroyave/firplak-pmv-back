@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\FpProductosPorPedidosModel;
 use App\Models\FpDocumentosEntregasModel;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
 use App\Models\FpGuiasEnvioModel;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FpGuiasEnvioController extends Controller
 {
-  public function generateGuiasTransporte()
+  public static function generateGuiasTransporte()
   {
 
-    DB::beginTransaction();
     try {
 
       $documentos = FpDocumentosEntregasModel::join("fp_productos_x_pedido", "fp_documentos_entrega.id_linea_producto", "fp_productos_x_pedido.id")
@@ -39,10 +40,29 @@ class FpGuiasEnvioController extends Controller
         }
       }
 
-      DB::commit();
       return response()->json(["status" => 1, "message" => "Guias generadas exitosamente"]);
     } catch (\Throwable $th) {
-      DB::rollBack();
+      return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine(), "Archivo" => __FILE__]);
+    }
+  }
+
+  public function getGuiasPerClient(Request $request)
+  {
+    try {
+
+      $guias = FpGuiasEnvioModel::join("fp_productos_x_pedido", "fp_guias.id_linea_producto", "fp_productos_x_pedido.id")
+        ->join("fp_pedidos", "fp_productos_x_pedido.id_pedido", "fp_pedidos.id_pedido")
+        ->join("fp_productos", "fp_productos_x_pedido.SKU", "fp_productos.SKU")
+        ->join("fp_clientes", "fp_pedidos.id_cliente", "fp_clientes.id_cliente")
+        ->where([
+          ["fp_pedidos.id_cliente", $request->id_cliente],
+          ["fp_clientes.id_cliente", $request->id_cliente],
+        ])
+        ->get()
+        ->toArray();
+
+      return response()->json(["status" => 1, "message" => $guias]);
+    } catch (\Throwable $th) {
       return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine(), "Archivo" => __FILE__]);
     }
   }

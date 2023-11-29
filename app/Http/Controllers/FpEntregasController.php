@@ -35,7 +35,7 @@ class FpEntregasController extends Controller
         ]);
       }
 
-      return response()->json(["status" => 1, "message" => "Documento generado exitosamente"]);
+      return FpGuiasEnvioController::generateGuiasTransporte();
     } catch (\Throwable $th) {
       return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine(), "Archivo" => __FILE__]);
     }

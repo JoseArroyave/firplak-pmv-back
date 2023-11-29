@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\FpEntregasController;
+use App\Models\FpClientesModel;
 use App\Models\FpProductosPorPedidosModel;
 use App\Models\FpOrdenesFabricacionModel;
 use Illuminate\Support\Facades\DB;
@@ -17,10 +18,16 @@ class FpPedidosController extends Controller
 {
   public function addPedido(Request $request)
   {
+
     DB::beginTransaction();
 
     try {
       $date = now();
+
+      if (!FpClientesModel::where("id_cliente", $request->id_cliente)->exists()) {
+        $addCliente = new FpClientesController();
+        $addCliente = $addCliente->addCliente($request);
+      }
 
       $pedido = new FpPedidosModel();
       $pedido->id_cliente = $request->id_cliente;
@@ -30,12 +37,14 @@ class FpPedidosController extends Controller
       $allProductos = [];
 
       foreach ($request->productos as $key => $producto) {
-        $allProductos[] = [
-          "direccion_entrega" => $producto["direccion_entrega"],
-          "cantidad" => $producto["cantidad"],
-          "id_pedido" => $pedido->id_pedido,
-          "SKU" => $producto["SKU"],
-        ];
+        if ($producto["direccion_entrega"] != null && $producto["cantidad"] != null && $producto["SKU"] != null) {
+          $allProductos[] = [
+            "direccion_entrega" => $producto["direccion_entrega"],
+            "cantidad" => $producto["cantidad"],
+            "id_pedido" => $pedido->id_pedido,
+            "SKU" => $producto["SKU"],
+          ];
+        }
       }
 
       FpProductosPorPedidosModel::insert($allProductos);

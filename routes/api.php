@@ -24,7 +24,6 @@ Route::group([
 ], function ($router) {
   Route::post('updateCliente', [FpClientesController::class, 'updateCliente']);
   Route::post('deleteCliente', [FpClientesController::class, 'deleteCliente']);
-  Route::post('addCliente', [FpClientesController::class, 'addCliente']);
 });
 
 Route::group([
@@ -33,6 +32,7 @@ Route::group([
 ], function ($router) {
   Route::post('updateProducto', [FpProductosController::class, 'updateProducto']);
   Route::post('deleteProducto', [FpProductosController::class, 'deleteProducto']);
+  Route::get('getProductos', [FpProductosController::class, 'getProductos']);
   Route::post('addProducto', [FpProductosController::class, 'addProducto']);
 });
 
@@ -50,4 +50,5 @@ Route::group([
   'prefix' => "guias"
 ], function ($router) {
   Route::post('generateGuiasTransporte', [FpGuiasEnvioController::class, 'generateGuiasTransporte']);
+  Route::post('getGuiasPerClient', [FpGuiasEnvioController::class, 'getGuiasPerClient']);
 });

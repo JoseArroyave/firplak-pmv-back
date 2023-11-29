@@ -50,4 +50,13 @@ class FPProductosController extends Controller
       return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine(), "Archivo" => __FILE__]);
     }
   }
+
+  public function getProductos()
+  {
+    try {
+      return response()->json(["status" => 1, "message" => FpProductosModel::get()]);
+    } catch (\Throwable $th) {
+      return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine(), "Archivo" => __FILE__]);
+    }
+  }
 }

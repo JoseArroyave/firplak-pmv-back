@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller;
 use App\Models\FpClientesModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class FpClientesController extends Controller
 {
