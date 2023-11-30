@@ -90,7 +90,7 @@ class FpGuiasEnvioController extends Controller
         return $gui["id_guia"] == $id_guia;
       }))[0];
 
-      $qrcode = base64_encode(QrCode::generate(env("API_DEV") . "/POD/$id_guia}"));
+      $qrcode = base64_encode(QrCode::generate(env("API_URL") . "/POD/$id_guia}"));
 
       $data = [
         "direccion_entrega" => $guia["direccion_entrega"],

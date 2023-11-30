@@ -72,7 +72,7 @@ class FpEntregasController extends Controller
         return $doc["id_documento_entrega"] == $id_documento;
       })[0];
 
-      $qrcode = base64_encode(QrCode::generate(env("API_DEV") . "/POD/$id_guia}"));
+      $qrcode = base64_encode(QrCode::generate(env("API_URL") . "/POD/$id_guia}"));
 
       $data = [
         // "id_documento_entrega" => $documento["id_documento_entrega"],
