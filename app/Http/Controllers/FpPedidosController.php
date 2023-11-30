@@ -16,6 +16,11 @@ use App\Models\FpPT02Model;
 
 class FpPedidosController extends Controller
 {
+
+  /**
+   * La función `addPedido` en PHP agrega un nuevo pedido a la base de datos, junto con los productos
+   * asociados y la información de entrega.
+   */
   public function addPedido(Request $request)
   {
 
@@ -62,6 +67,14 @@ class FpPedidosController extends Controller
     }
   }
 
+  /**
+   * La función procesa productos de tipo 1 en un pedido determinado, actualizando las fechas de despacho
+   * y entrega, insertando un nuevo registro en la tabla de órdenes de fabricación e incrementando la
+   * cantidad en otra tabla.
+   * 
+   * @param pedido La variable representa un pedido o solicitud específica.
+   * @param allProductos Una matriz que contiene todos los productos.
+   */
   private function processTipo1Products($pedido, $allProductos)
   {
     $productosBySKU = FpProductosModel::whereIn("SKU", array_column($allProductos, 'SKU'))->get()->toArray();
@@ -97,6 +110,14 @@ class FpPedidosController extends Controller
     }
   }
 
+  /**
+   * La función procesa productos de tipo 2 en un pedido determinado, actualizando las fechas de despacho
+   * y entrega, insertando un nuevo registro en la tabla de órdenes de fabricación y disminuyendo la
+   * cantidad en otra tabla.
+   * 
+   * @param pedido La variable representa un pedido o solicitud específica.
+   * @param allProductos Una matriz que contiene todos los productos.
+   */
   private function processTipo2Products($pedido, $allProductos)
   {
     $productosBySKU = FpProductosModel::whereIn("SKU", array_column($allProductos, 'SKU'))->get()->toArray();
@@ -122,6 +143,10 @@ class FpPedidosController extends Controller
     }
   }
 
+  /**
+   * La función elimina un pedido de la tabla FpPedidosModel en la base de datos y devuelve una respuesta
+   * JSON indicando el estado y mensaje de la operación.
+   */
   public function deletePedido(Request $request)
   {
     try {

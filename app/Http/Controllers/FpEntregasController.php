@@ -11,6 +11,12 @@ use App\Models\FpGuiasEnvioModel;
 
 class FpEntregasController extends Controller
 {
+  /**
+   * La función `setDocumentEntrega` crea documentos de entrega para un pedido determinado y actualiza el
+   * pedido con el ID del documento correspondiente.
+   * 
+   * @param array pedido El parámetro es un array que contiene información sobre un pedido.
+   */
   public static function setDocumentEntrega(array $pedido)
   {
 
@@ -43,6 +49,17 @@ class FpEntregasController extends Controller
     }
   }
 
+  /**
+   * La función "getDocumentosPerGuia" recupera una lista de documentos por guía, según el ID de la guía
+   * proporcionado.
+   * 
+   * @param id_guia El parámetro "id_guia" es el ID de una guía que se utiliza para recuperar los
+   * documentos asociados.
+   * @param notApi Un parámetro booleano que indica si la función debe devolver el resultado como
+   * respuesta API o no. Si se establece en verdadero, la función devolverá el resultado como una matriz.
+   * Si se establece en falso (predeterminado), la función devolverá el resultado como una respuesta
+   * JSON.
+   */
   public function getDocumentosPerGuia($id_guia, $notApi = false)
   {
     try {
@@ -61,6 +78,18 @@ class FpEntregasController extends Controller
     }
   }
 
+  /**
+   * La función `getDocumentoPDF` genera un documento PDF basado en los parámetros proporcionados y lo
+   * devuelve como una secuencia.
+   * 
+   * @param id_guia El parámetro "id_guia" representa el ID de una guía o envío. Se utiliza para
+   * recuperar los documentos asociados a esa guía.
+   * @param id_documento El parámetro "id_documento" es el ID del documento específico que desea
+   * recuperar. Se utiliza para filtrar los documentos y encontrar aquel que tenga una identificación
+   * coincidente.
+   * 
+   * @return blob de un archivo PDF.
+   */
   public function getDocumentoPDF($id_guia, $id_documento)
   {
     try {

@@ -47,6 +47,18 @@ class FpGuiasEnvioController extends Controller
     }
   }
 
+  /**
+   * La función `getGuiasPerClient` recupera una lista de guías (guías de envío) para un cliente
+   * específico en una aplicación PHP.
+   * 
+   * @param id_cliente El parámetro "id_cliente" es el ID del cliente del cual se desea recuperar las
+   * guías. Se utiliza para filtrar los resultados y devolver solo las guías asociadas a ese cliente.
+   * @param notApi El parámetro "notApi" es un indicador booleano que determina si la función debe
+   * devolver el resultado como una matriz o como una respuesta JSON.
+   * 
+   * @return array sea una matriz de "guías" (si  es verdadero) o una respuesta JSON que contiene el
+   * estado y el mensaje (si  es falso).
+   */
   public function getGuiasPerClient($id_cliente, $notApi = false)
   {
     try {
@@ -83,6 +95,16 @@ class FpGuiasEnvioController extends Controller
     }
   }
 
+  /**
+   * La función `getGuiaPDF` genera un documento PDF que contiene información sobre una guía específica y
+   * lo transmite al usuario.
+   * 
+   * @param id_guia El parámetro "id_guia" representa el ID de una guía específica que desea recuperar.
+   * @param id_cliente El parámetro "id_cliente" representa el ID del cliente para quien se genera la
+   * guía. Se utiliza para recuperar la información necesaria relacionada con la guía del cliente.
+   * 
+   * @return blob de un archivo PDF.
+   */
   public function getGuiaPDF($id_guia, $id_cliente)
   {
     try {
@@ -112,6 +134,10 @@ class FpGuiasEnvioController extends Controller
     }
   }
 
+  /**
+   * La función `savePOD` actualiza el campo `pod_registered` en la tabla `FpGuiasEnvioModel` con un
+   * valor de 1 para un `id_guia` específico proporcionado en la solicitud.
+   */
   public function savePOD(Request $request)
   {
     try {

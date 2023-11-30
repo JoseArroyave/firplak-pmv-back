@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class FPProductosController extends Controller
 {
+
+  /**
+   * La función `addProducto` agrega un nuevo producto a la base de datos y devuelve una respuesta JSON
+   * indicando el éxito o fracaso de la operación.
+   */
   public function addProducto(Request $request)
   {
     try {
@@ -24,6 +29,11 @@ class FPProductosController extends Controller
     }
   }
 
+  /**
+   * La función `updateProducto` actualiza la descripción y el precio de un producto en la tabla
+   * FpProductosModel según el SKU proporcionado en la solicitud y devuelve una respuesta JSON indicando
+   * el éxito o fracaso de la actualización.
+   */
   public function updateProducto(Request $request)
   {
     try {
@@ -39,6 +49,9 @@ class FPProductosController extends Controller
     }
   }
 
+  /**
+   * La función elimina un producto de la base de datos según el SKU proporcionado en la solicitud.
+   */
   public function deleteProducto(Request $request)
   {
     try {
@@ -51,6 +64,11 @@ class FPProductosController extends Controller
     }
   }
 
+  /**
+   * La función `getProductos` devuelve una respuesta JSON que contiene el estado y el mensaje, que
+   * incluye el resultado del método `FpProductosModel::get()`, o un mensaje de error con la línea y el
+   * archivo donde ocurrió el error.
+   */
   public function getProductos()
   {
     try {
