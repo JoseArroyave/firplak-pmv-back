@@ -62,3 +62,10 @@ Route::group([
   Route::get('getDocumentoPDF/{id_guia}/{id_documento}', [FpEntregasController::class, 'getDocumentoPDF']);
   Route::get('getDocumentosPerGuia/{id_guia}', [FpEntregasController::class, 'getDocumentosPerGuia']);
 });
+
+Route::group([
+  // 'middleware' => 'jwt.verify',
+  'prefix' => "pod"
+], function ($router) {
+  Route::post('savePOD', [FpGuiasEnvioController::class, 'savePOD']);
+});

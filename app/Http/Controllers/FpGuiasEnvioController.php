@@ -8,9 +8,11 @@ use App\Models\FpDocumentosEntregasModel;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Routing\Controller;
 use App\Models\FpGuiasEnvioModel;
+use Illuminate\Http\Request;
 
 class FpGuiasEnvioController extends Controller
 {
+
   public static function generateGuiasTransporte()
   {
 
@@ -58,6 +60,7 @@ class FpGuiasEnvioController extends Controller
           "fp_clientes.nombre",
           "fp_clientes.apellido",
           "fp_clientes.id_cliente",
+          "fp_guias.pod_registered",
           "fp_productos_x_pedido.fecha_entrega",
           "fp_productos_x_pedido.fecha_despacho",
           "fp_productos_x_pedido.direccion_entrega",
@@ -66,7 +69,7 @@ class FpGuiasEnvioController extends Controller
           ["fp_pedidos.id_cliente", $id_cliente],
           ["fp_clientes.id_cliente", $id_cliente],
         ])
-        ->groupBy('fp_guias.id_guia', 'fp_clientes.nombre', 'fp_clientes.apellido', 'fp_clientes.id_cliente', 'fp_productos_x_pedido.fecha_entrega', 'fp_productos_x_pedido.fecha_despacho', 'fp_productos_x_pedido.direccion_entrega')
+        ->groupBy('fp_guias.id_guia', 'fp_clientes.nombre', 'fp_clientes.apellido', 'fp_clientes.id_cliente', 'fp_productos_x_pedido.fecha_entrega', 'fp_productos_x_pedido.fecha_despacho', 'fp_productos_x_pedido.direccion_entrega', "fp_guias.pod_registered")
         ->get()
         ->toArray();
 
@@ -104,6 +107,15 @@ class FpGuiasEnvioController extends Controller
       ];
 
       return PDF::loadView('guia', $data)->stream("Guia {$guia["id_guia"]}");
+    } catch (\Throwable $th) {
+      return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine(), "Archivo" => __FILE__]);
+    }
+  }
+
+  public function savePOD(Request $request)
+  {
+    try {
+      FpGuiasEnvioModel::where("id_guia", $request->guia)->update(["pod_registered" => 1]);
     } catch (\Throwable $th) {
       return response()->json(["Error" => $th->getMessage(), "Línea" => $th->getLine(), "Archivo" => __FILE__]);
     }
