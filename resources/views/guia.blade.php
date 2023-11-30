@@ -60,11 +60,15 @@
 
     <table>
         <tr>
-            <td>Dirección de Entrega</td>
+            <td>ID de la guía</td>
+            <td>{{ $id_guia }}</td>
+        </tr>
+        <tr>
+            <td>Dirección de entrega</td>
             <td>{{ $direccion_entrega }}</td>
         </tr>
         <tr>
-            <td>Fecha de Despacho</td>
+            <td>Fecha de despacho</td>
             <td>{{ $fecha_despacho }}</td>
         </tr>
         <tr>
@@ -76,16 +80,12 @@
             <td>{{ $id_cliente }}</td>
         </tr>
         <tr>
-            <td>Apellido</td>
-            <td>{{ $apellido }}</td>
-        </tr>
-        <tr>
-            <td>ID de la Guía</td>
-            <td>{{ $id_guia }}</td>
-        </tr>
-        <tr>
             <td>Nombre</td>
             <td>{{ $nombre }}</td>
+        </tr>
+        <tr>
+            <td>Apellido</td>
+            <td>{{ $apellido }}</td>
         </tr>
     </table>
 

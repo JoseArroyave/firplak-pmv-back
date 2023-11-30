@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "jose": "php artisan serve --host 192.168.2.103 --port 8000"
+    "jose": "php artisan serve --host 192.168.1.9 --port 8000"
   },
   "devDependencies": {
     "axios": "^1.6.1",
